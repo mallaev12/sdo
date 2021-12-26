@@ -7,14 +7,20 @@ include_once ("MBaseModule.php");
 
         function execute()
         {
-            if(isset($_GET["edit_lk"])){
-                //$this->edit_lk();
+            if(isset($_GET["id"])){
+                $this->out_cours();
             } 
             else {
                 $this->output_course();
             }
         }
-        
+        function out_cours(){
+            $usercourse = new Tcourse($this->dbcon);
+            $id = $_GET["id"];
+            $usercourse->select($id);
+            $name = $usercourse->getinfo("name");
+            $this->content = "<h3>Курс:".$name."</h3>";
+        }
                             
 
         function output_course() {
@@ -31,8 +37,7 @@ include_once ("MBaseModule.php");
             $groups->select($data["ugroup_id"]);
             $data["spec_id_group"] = $groups->getinfo("spec_id");
 
-            $usercourse->select($data["spec_id_group"]);
-            $data["spec_id_courses"] = $usercourse->getinfo("spec_id");
+            
         
             $this->content.= "<p>".$data['name']."</p>";
             $this->content.= "<p>".$data['position']."</p>";
@@ -40,23 +45,21 @@ include_once ("MBaseModule.php");
             //$this->content.= "<p>".$data['spec_id']."</p>";
             $this->content.= "<p>".$data['group']."</p>";
 
-            $coursesList = $usercourse->getListspec();
+            $coursesList = $usercourse->getListBy();
+            
             foreach($coursesList as $key => $item){
-                $usercourse->select($item["spec_id"]);
+                $usercourse->select($item["id"]);
                 $data_c["spec_id"] = $usercourse->getinfo("spec_id");
-                print_r($data_c);
                 if ($data_c["spec_id"] == $data["spec_id_group"]){
-                    $usercourse->select($item["spec_id"]);
-                    $data["course"] = $usercourse->getinfo("name");
-                    print_r($data);
-                    $this->content.= "<p>".$data['course']."</p>";
+                        $usercourse->select($item["id"]);
+                        $data["course"] = $usercourse->getinfo("name");
+                        $this->content.= "<a href = \?module=courses&id=".$item["id"].">".$data['course']."</a><br>";
                 }
-                
             }
             
             
             
-            $this->content.= "<a href = \?module=lk&edit_lk=".$userobj->getinfo("id")."\">Редактировать</a>";
+            //$this->content.= "<a href = \?module=lk&edit_lk=".$userobj->getinfo("id")."\">Редактировать</a>";
             }
         
     }
