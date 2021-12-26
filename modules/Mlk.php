@@ -11,6 +11,7 @@ include_once ("MBaseModule.php");
                 $this->edit_lk();
             } 
             else {
+                $this->content.="<h3>Личный кабинет</h3>";
                 $this->output_lk();
             }
         }
@@ -49,6 +50,9 @@ include_once ("MBaseModule.php");
                 $frm->out().
                 "</div>". 
                 "</div>";
+                if (isset($_POST["saveitem"])){
+                    header("Location: /?module=lk");
+                }
         }
                             
 
@@ -64,7 +68,7 @@ include_once ("MBaseModule.php");
             $data["name"] = $userobj->getinfo("name");
             $data["position"] = $userobj->getinfo("position");
             $data["ugroup_id"] = $userobj->getinfo("group_id");
-            print_r($data["ugroup_id"]);
+            // print_r($data["ugroup_id"]);
             $groups->select($data["ugroup_id"]);
             $data["group"] = $groups->getinfo("name");
 

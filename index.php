@@ -9,6 +9,7 @@ include("model/Tsettings.php");
 include("model/Tmenu.php");
 include("model/Tlk.php");
 include("model/Tlk2.php");
+include("model/Tcourse.php");
 
 include("object/view.php");
 include("object/controller.php");
