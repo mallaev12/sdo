@@ -103,4 +103,16 @@ class TbaseModel
         return $request->fetchAll();
     }
 
+    function getListspec($values=[])
+    {
+        $ssql="";
+        foreach ($values as $key => $value ){
+            $ssql.=" and `$key`=:$key";
+           
+        }
+
+        $request = $this->dbcon->prepare("select `spec_id` from `".$this->tblname."` where `del` = 0  $ssql");
+        $request->execute($values);
+        return $request->fetchAll();
+    }
 }

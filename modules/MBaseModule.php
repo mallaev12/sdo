@@ -15,7 +15,4 @@
         function getContent(){
             return $this->content;
         }
-
-
-
     }
