@@ -3,7 +3,7 @@
     class Cauth
     {
         private $dbcon;
-        private $userid=0;
+        public $userid=0;
 
 
         function __construct($con)

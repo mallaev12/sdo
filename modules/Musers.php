@@ -76,7 +76,7 @@ include_once ("MBaseModule.php");
             $frm->checkbox("subjects", 3, "", "Обществознание");
             $frm->checkbox("subjects", 4, "", "История");
 
-
+            print_r($userobj->getinfo("name"));
             $frm->addpasswfield("passw", "", "Введите пароль");
             $frm->addpasswfield("passw2", "", "Введите подтверждение пароля");
             $frm->addsubmitfield("saveitem", "Сохранить");
@@ -109,7 +109,7 @@ include_once ("MBaseModule.php");
 
             $userlist = $userobj->getlistBy();
             $tbl = new Ttable;
-
+            
             $tbl->addparams("class=\"table table-striped table-sm\"");
             foreach ($userlist as $key=>$item){
                 $userobj->select($item["id"]);
